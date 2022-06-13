@@ -74,6 +74,7 @@ window.RecurringSelectDialog =
 
     countInit: ->
       @count_select = @outer_holder.find ".rs_count"
+      @count_select.on "change", @countChanged
 
     freqInit: ->
       @freq_select = @outer_holder.find ".rs_frequency"
@@ -225,6 +226,12 @@ window.RecurringSelectDialog =
       @content.find(".rs_calendar_day").toggle(!week_mode)
 
 # ========================= Change callbacks ===============================
+
+    countChanged: =>
+      @current_rule.str = null
+      @current_rule.hash ||= {}
+      @current_rule.hash.count = @count_select.val()
+      @summaryUpdate()
 
     freqChanged: =>
       @current_rule.hash = null unless $.isPlainObject(@current_rule.hash) # for custom values
