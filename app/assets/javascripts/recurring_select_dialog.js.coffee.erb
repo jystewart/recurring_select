@@ -74,6 +74,10 @@ window.RecurringSelectDialog =
 
     countInit: ->
       @count_select = @outer_holder.find ".rs_count"
+      if @current_rule.hash? && @current_rule.hash.count?
+        @count_select.val(@current_rule.hash.count)
+      else
+        @count_select.val(4)
       @count_select.on "change", @countChanged
 
     freqInit: ->
