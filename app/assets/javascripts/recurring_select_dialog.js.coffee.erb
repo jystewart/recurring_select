@@ -20,6 +20,7 @@ window.RecurringSelectDialog =
       @positionDialogVert(true)
       @mainEventInit()
       @freqInit()
+      @countInit()
       @summaryInit()
       @outer_holder.trigger "recurring_select:dialog_opened"
       @freq_select.focus()
@@ -70,6 +71,9 @@ window.RecurringSelectDialog =
       @content.on 'click tap', 'h1 a', @cancel
       @save_button = @content.find('input.rs_save').on "click tap", @save
       @content.find('input.rs_cancel').on "click tap", @cancel
+
+    countInit: ->
+      @count_select = @outer_holder.find ".rs_count"
 
     freqInit: ->
       @freq_select = @outer_holder.find ".rs_frequency"
@@ -228,7 +232,7 @@ window.RecurringSelectDialog =
       @current_rule.hash ||= {}
       @current_rule.hash.interval = 1
       @current_rule.hash.until = null
-      @current_rule.hash.count = null
+      @current_rule.hash.count = @count_select.val()
       @current_rule.hash.validations = null
       @content.find(".freq_option_section").hide();
       @content.find("input[type=radio], input[type=checkbox]").prop("checked", false)
@@ -302,7 +306,7 @@ window.RecurringSelectDialog =
 
     template: () ->
       str = "
-      <div class='rs_dialog_holder'>
+      <div class='james rs_dialog_holder'>
         <div class='rs_dialog'>
           <div class='rs_dialog_content'>
             <h1>#{$.fn.recurring_select.texts["repeat"]} <a href='#' title='#{$.fn.recurring_select.texts["cancel"]}' Alt='#{$.fn.recurring_select.texts["cancel"]}'></a> </h1>
@@ -357,6 +361,13 @@ window.RecurringSelectDialog =
                 #{$.fn.recurring_select.texts["every"]}
                 <input type='text' data-wrapper-class='ui-recurring-select' name='rs_yearly_interval' class='rs_yearly_interval rs_interval' value='1' size='2' />
                 #{$.fn.recurring_select.texts["years"]}
+              </p>
+            </div>
+            <div class='repeat_options repeat_option_section'>
+              <p>
+                #{$.fn.recurring_select.texts["repeat"]}
+                <input type='text' data-wrapper-class='ui-recurring-select' name='rs_count' class='rs_count' value='4' size='2' />
+                #{$.fn.recurring_select.texts["times"]}
               </p>
             </div>
             <p class='rs_summary'>
