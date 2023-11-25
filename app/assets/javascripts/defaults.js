@@ -9,6 +9,7 @@ const defaultConfig = {
     repeat: "Repeat",
     last_day: "Last Day",
     frequency: "Frequency",
+    times: "Times",
     daily: "Daily",
     weekly: "Weekly",
     monthly: "Monthly",

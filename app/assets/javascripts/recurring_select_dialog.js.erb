@@ -96,7 +96,7 @@ class RecurringSelectDialog {
   }
 
     countInit() {
-      const count_input = this content.find('.rs_count')
+      const count_input = this.content.find('.rs_count')
       count_input.val(this.current_rule.hash.count);
       count_input.on("change keyup", this.countChanged);
     }
