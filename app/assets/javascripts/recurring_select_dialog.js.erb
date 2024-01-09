@@ -95,11 +95,11 @@ class RecurringSelectDialog {
     on(this.freq_select, "change", this.freqChanged);
   }
 
-    countInit() {
-      const count_input = this.content.find('.rs_count')
-      count_input.val(this.current_rule.hash.count);
-      count_input.on("change keyup", this.countChanged);
-    }
+  countInit() {
+    const count_input = this.content.querySelector('.rs_count')
+    count_input.value = this.current_rule.hash.count;
+    on(count_input, "change keyup", this.countChanged);
+  }
 
   initDailyOptions() {
     const section = this.content.querySelector('.daily_options')
