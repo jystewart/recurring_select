@@ -54,7 +54,7 @@ const methods = {
 
   current_rule() {
     return {
-      str:  this.getAttribute("data-initial-value-str"),
+      str: this.getAttribute("data-initial-value-str"),
       hash: JSON.parse(this.getAttribute("data-initial-value-hash"))
     };
   },
@@ -64,7 +64,6 @@ const methods = {
     this.setAttribute("data-recurring-select-active", false);
     this.dispatchEvent(new CustomEvent("recurring_select:cancel"))
   },
-
 
   insert_option(new_rule_str, new_rule_json) {
     let separator = this.querySelectorAll("option[disabled]");
@@ -91,6 +90,6 @@ function recurring_select(method) {
   if (method in methods) {
     return methods[ method ].apply( this, Array.prototype.slice.call( arguments, 1 ) );
   } else {
-    throw new Error( `Method ${method} does not exist on jQuery.recurring_select` );
+    throw new Error( `Method ${method} does not exist on recurring_select` );
   }
 }
