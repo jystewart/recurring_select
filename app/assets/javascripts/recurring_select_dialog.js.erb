@@ -13,6 +13,7 @@ class RecurringSelectDialog {
     this.init_calendar_weeks = this.init_calendar_weeks.bind(this);
     this.toggle_month_view = this.toggle_month_view.bind(this);
     this.freqChanged = this.freqChanged.bind(this);
+    this.countChanged = this.countChanged.bind(this);
     this.intervalChanged = this.intervalChanged.bind(this);
     this.daysChanged = this.daysChanged.bind(this);
     this.dateOfMonthChanged = this.dateOfMonthChanged.bind(this);
@@ -40,8 +41,8 @@ class RecurringSelectDialog {
     this.content = this.outer_holder.querySelector(".rs_dialog_content");
 
     this.mainEventInit();
+    this.countInit();
     this.freqInit();
-    this.countInit()
     this.summaryInit();
     trigger(this.outer_holder, "recurring_select:dialog_opened");
     this.freq_select.focus();
@@ -96,9 +97,12 @@ class RecurringSelectDialog {
   }
 
   countInit() {
-    const count_input = this.content.querySelector('.rs_count')
-    count_input.value = this.current_rule.hash.count;
-    on(count_input, "change keyup", this.countChanged);
+    this.count_input = this.outer_holder.querySelector(".rs_count");
+    if (this.current_rule.hash != null && rule_type != null) {
+      this.count_input.value = this.current_rule.hash.count;
+    }
+    
+    on(this.count_input, "change keyup", this.countChanged);
   }
 
   initDailyOptions() {
@@ -162,7 +166,6 @@ class RecurringSelectDialog {
     on(interval_input, "change keyup", this.intervalChanged)
     section.style.display = 'block'
   }
-
 
   summaryInit() {
     this.summary = this.outer_holder.querySelector(".rs_summary");
@@ -287,7 +290,7 @@ class RecurringSelectDialog {
     if (!this.current_rule.hash) { this.current_rule.hash = {} };
     this.current_rule.hash.interval = 1;
     this.current_rule.hash.until = null;
-    this.current_rule.hash.count = this.count_select.val();
+    this.current_rule.hash.count = this.count_input.value;
     this.current_rule.hash.validations = null;
     this.content.querySelectorAll(".freq_option_section").forEach(el => el.style.display = 'none')
     this.content.querySelector("input[type=radio], input[type=checkbox]").checked = false
@@ -315,12 +318,12 @@ class RecurringSelectDialog {
     this.summaryUpdate();
   }
 
-    countChanged(event) {
-      this.current_rule.str = null;
-      if (!this.current_rule.hash) { this.current_rule.hash = {} };
-      this.current_rule.hash.count = parseInt($(event.currentTarget).val());
-      this.summaryUpdate()
-    }
+  countChanged(event) {
+    this.current_rule.str = null;
+    if (! this.current_rule.hash) { this.current_rule.hash = {} };
+    this.current_rule.hash.count = parseInt(this.count_input.value);
+    this.summaryUpdate()
+  }
 
   intervalChanged(event) {
     this.current_rule.str = null;
