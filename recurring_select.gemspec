@@ -14,7 +14,8 @@ Gem::Specification.new do |s|
   s.files = Dir["{app,config,db,lib}/**/*"] + ["MIT-LICENSE", "Rakefile", "README.md"]
   s.test_files = Dir["test/**/*"]
 
-  s.add_dependency "rails", ">= 6.1"
+  s.required_ruby_version = ">= 3.1"
+  s.add_dependency "rails", ">= 7.1"
   s.add_dependency "ice_cube", ">= 0.11"
 
   s.add_development_dependency "bundler", ">= 1.3.5"
