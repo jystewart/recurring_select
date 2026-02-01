@@ -15,6 +15,12 @@ jobs:
           - spec/gemfiles/rails-7.2
           - spec/gemfiles/rails-8.0
           - spec/gemfiles/rails-8.1
+        exclude:
+          # Rails 8.0+ requires Ruby 3.2+
+          - ruby: '3.1'
+            gemfile: spec/gemfiles/rails-8.0
+          - ruby: '3.1'
+            gemfile: spec/gemfiles/rails-8.1
 
     env:
       BUNDLE_GEMFILE: ${{matrix.gemfile}}
